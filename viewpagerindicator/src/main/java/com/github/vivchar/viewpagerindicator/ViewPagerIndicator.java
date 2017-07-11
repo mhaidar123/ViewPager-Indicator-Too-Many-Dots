@@ -11,16 +11,14 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/** Created by Vitaly Vivchar on 13/01/17. */
+/** Created by Mohammad Haidar on 11/07/2017 **/
+
 public class ViewPagerIndicator extends LinearLayoutCompat
 {
 	private static final float SCALE = 1.6f;
@@ -79,7 +77,8 @@ public class ViewPagerIndicator extends LinearLayoutCompat
 	}
 
 	public
-	void setupWithViewPager(@NonNull final ViewPager viewPager) {
+	void setupWithViewPager(@NonNull final ViewPager viewPager)
+	{
 		setPageCount(viewPager.getAdapter().getCount());
 		viewPager.addOnPageChangeListener(new OnPageChangeListener());
 	}
@@ -99,15 +98,22 @@ public class ViewPagerIndicator extends LinearLayoutCompat
 		{
 			if(selectedIndex>2 && selectedIndex<mPageCount-2)
 			{
-				getChildAt(2+selectedIndex).animate().alphaBy(1.0f).setDuration(0).setListener(new Animator.AnimatorListener() {
+				viewsArrayList.add(getChildAt(2+selectedIndex));
+				viewsArrayList.remove(getChildAt(selectedIndex-3));
+
+
+				getChildAt(2+selectedIndex).animate().alphaBy(1.0f).setDuration(0).setListener(new Animator.AnimatorListener()
+				{
 
 					@Override
-					public void onAnimationStart(Animator animation) {
+					public void onAnimationStart(Animator animation)
+					{
 
 					}
 
 					@Override
-					public void onAnimationEnd(Animator animation) {
+					public void onAnimationEnd(Animator animation)
+					{
 						getChildAt(2+selectedIndex).setVisibility(View.VISIBLE);
 						getChildAt(2+selectedIndex).setAlpha(0.4f);
 						getChildAt(1+selectedIndex).setAlpha(1.0f);
@@ -134,6 +140,7 @@ public class ViewPagerIndicator extends LinearLayoutCompat
 					@Override
 					public void onAnimationEnd(Animator animation) {
 						getChildAt(selectedIndex-3).setVisibility(View.GONE);
+						getChildAt(selectedIndex-2).setAlpha(0.4f);
 					}
 
 					@Override
@@ -146,12 +153,13 @@ public class ViewPagerIndicator extends LinearLayoutCompat
 
 					}
 				}).start();
-				viewsArrayList.add(getChildAt(2+selectedIndex));
-				viewsArrayList.remove(getChildAt(selectedIndex-3));
-
-
 			}
-			else if(selectedIndex>2)
+			else if(selectedIndex==mPageCount-2)
+			{
+				getChildAt(mPageCount-1).setAlpha(1.0f);
+			}
+
+			/*else if(selectedIndex>2)
 			{
 				viewsArrayList.get(viewsArrayList.size()-1).setAlpha(0.4f);
 				getChildAt(0).setAlpha(1.0f);
@@ -167,8 +175,7 @@ public class ViewPagerIndicator extends LinearLayoutCompat
 				getChildAt(mPageCount-1).setAlpha(1.0f);
 				getChildAt(0).setAlpha(1.0f);
 
-			}
-
+			}*/
 		}
 		else
 		{
@@ -183,6 +190,7 @@ public class ViewPagerIndicator extends LinearLayoutCompat
 					@Override
 					public void onAnimationEnd(Animator animation) {
 						getChildAt(3+selectedIndex).setVisibility(View.GONE);
+						getChildAt(2+selectedIndex).setAlpha(0.4f);
 					}
 
 					@Override
@@ -195,6 +203,7 @@ public class ViewPagerIndicator extends LinearLayoutCompat
 
 					}
 				}).start();
+
 				getChildAt(selectedIndex-2).animate().alphaBy(1.0f).setDuration(0).setListener(new Animator.AnimatorListener() {
 					@Override
 					public void onAnimationStart(Animator animation) {
@@ -218,11 +227,16 @@ public class ViewPagerIndicator extends LinearLayoutCompat
 
 					}
 				}).start();
+
 				viewsArrayList.remove(getChildAt(3+selectedIndex));
 				viewsArrayList.add(getChildAt(selectedIndex-2));
 
 			}
-			else if(selectedIndex>mPageCount-3)
+			else if(selectedIndex==1)
+			{
+				getChildAt(0).setAlpha(1.0f);
+			}
+			/*else if(selectedIndex>mPageCount-3)
 			{
 				viewsArrayList.get(0).setAlpha(0.4f);
 				getChildAt(mPageCount-1).setAlpha(1.0f);
@@ -237,7 +251,7 @@ public class ViewPagerIndicator extends LinearLayoutCompat
 				viewsArrayList.get(viewsArrayList.size()-1).setAlpha(0.4f);
 				getChildAt(0).setAlpha(1.0f);
 				getChildAt(mPageCount-1).setAlpha(1.0f);
-			}
+			}*/
 
 		}
 
@@ -264,8 +278,14 @@ public class ViewPagerIndicator extends LinearLayoutCompat
 			addView(createBoxedItem(i));
 			if(i>MAX_SHOW-1)
 				getChildAt(i).setVisibility(View.GONE);
+
 			else
+			{
 				viewsArrayList.add(getChildAt(i));
+				if(i==MAX_SHOW-1)
+					viewsArrayList.get(i).setAlpha(0.4f);
+			}
+
 		}
 		setSelectedIndex(mSelectedIndex);
 	}
