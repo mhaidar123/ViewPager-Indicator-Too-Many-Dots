@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
 	android:id = "@+id/main"
 	xmlns:android = "http://schemas.android.com/apk/res/android"
 	xmlns:app = "http://schemas.android.com/apk/res-auto"
 	android:layout_width = "match_parent"
 	android:layout_height = "match_parent"
-	android:background="@android:color/darker_gray"
-	>
+	android:background="@android:color/darker_gray">
 
 	<android.support.v4.view.ViewPager
 		android:id = "@+id/view_pager"
 		android:layout_width = "match_parent"
 		android:layout_height = "match_parent"
-		/>
+		android:layout_above="@+id/view_pager_indicator"/>
 
 	<com.github.vivchar.viewpagerindicator.ViewPagerIndicator
+		android:layout_marginTop="5dp"
+		android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true"
 		android:id = "@+id/view_pager_indicator"
 		android:layout_width = "wrap_content"
 		android:layout_height = "wrap_content"
 		android:layout_gravity = "center_horizontal|bottom"
 		android:layout_marginBottom = "20dp"
 		app:delimiterSize = "8dp"
-		app:itemSize = "8dp"
-		/>
-</FrameLayout>
+		app:itemSize = "8dp" />
+
+</RelativeLayout>

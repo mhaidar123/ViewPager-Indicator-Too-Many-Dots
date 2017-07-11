@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,12 +16,12 @@ import com.example.vivchar.example.R;
 import com.github.vivchar.viewpagerindicator.ViewPagerIndicator;
 
 public
-class MainActivity
-		extends AppCompatActivity
+class MainActivity extends AppCompatActivity
 {
 
 	private ViewPagerIndicator mViewPagerIndicator;
 	private ViewPager mViewPager;
+	private int []imagesRes =new int[] {android.R.color.holo_red_dark,android.R.color.holo_blue_bright,android.R.color.black,android.R.color.holo_green_dark,android.R.color.holo_red_dark,android.R.color.holo_blue_bright,android.R.color.black,android.R.color.holo_green_dark,android.R.color.holo_red_dark,android.R.color.holo_blue_bright};
 
 	@Override
 	protected
@@ -28,17 +29,18 @@ class MainActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
+
+
 		mViewPagerIndicator = (ViewPagerIndicator) findViewById(R.id.view_pager_indicator);
 		mViewPager = (ViewPager) findViewById(R.id.view_pager);
 
 		mViewPager.setAdapter(new MyPagerAdapter());
+		mViewPager.setOffscreenPageLimit(5);
 		mViewPagerIndicator.setupWithViewPager(mViewPager);
 		mViewPagerIndicator.addOnPageChangeListener(mOnPageChangeListener);
 	}
 
-	private
-	class MyPagerAdapter
-			extends PagerAdapter
+	private class MyPagerAdapter extends PagerAdapter
 	{
 		@Override
 		public
@@ -48,12 +50,11 @@ class MainActivity
 
 		@SuppressLint("SetTextI18n")
 		@Override
-		public
-		Object instantiateItem(final ViewGroup container, final int position) {
-			final TextView textView = new TextView(MainActivity.this);
-			textView.setText("Page " + position);
-			container.addView(textView);
-			return textView;
+		public Object instantiateItem(final ViewGroup container, final int position) {
+			final ImageView imageView = new ImageView(MainActivity.this);
+			imageView.setImageResource(imagesRes[position]);
+			container.addView(imageView);
+			return imageView;
 		}
 
 		@Override
@@ -87,7 +88,7 @@ class MainActivity
 		@Override
 		public
 		void onPageSelected(final int position) {
-			Toast.makeText(MainActivity.this, "Page selected " + position, Toast.LENGTH_SHORT).show();
+			//Toast.makeText(MainActivity.this, "Page selected " + position, Toast.LENGTH_SHORT).show();
 		}
 
 		@Override
