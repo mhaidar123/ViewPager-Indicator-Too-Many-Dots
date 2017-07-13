@@ -21,7 +21,7 @@ class MainActivity extends AppCompatActivity
 
 	private ViewPagerIndicator mViewPagerIndicator;
 	private ViewPager mViewPager;
-	private int []imagesRes =new int[] {android.R.color.holo_red_dark,android.R.color.holo_blue_bright,android.R.color.black,android.R.color.holo_green_dark,android.R.color.holo_red_dark,android.R.color.holo_blue_bright,android.R.color.black,android.R.color.holo_green_dark,android.R.color.holo_red_dark,android.R.color.holo_blue_bright};
+	private int []imagesRes =new int[] {android.R.color.holo_red_dark,android.R.color.holo_blue_bright,android.R.color.black,android.R.color.holo_green_dark,android.R.color.holo_red_dark,android.R.color.holo_blue_bright,android.R.color.black,android.R.color.holo_green_dark,android.R.color.holo_red_dark,android.R.color.holo_blue_bright,android.R.color.holo_red_dark,android.R.color.holo_blue_bright,android.R.color.black,android.R.color.holo_green_dark,android.R.color.holo_red_dark,android.R.color.holo_blue_bright,android.R.color.black,android.R.color.holo_green_dark};
 
 	@Override
 	protected
@@ -45,7 +45,7 @@ class MainActivity extends AppCompatActivity
 		@Override
 		public
 		int getCount() {
-			return 10;
+			return 18;
 		}
 
 		@SuppressLint("SetTextI18n")

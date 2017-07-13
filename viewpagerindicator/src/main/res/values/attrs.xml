@@ -4,4 +4,5 @@
 		<attr name = "itemSize" format = "dimension"/>
 		<attr name = "delimiterSize" format = "dimension"/>
 	</declare-styleable>
+
 </resources>

@@ -56,7 +56,8 @@ public class ViewPagerIndicator extends LinearLayoutCompat
 		} finally {
 			attributes.recycle();
 		}
-		if (isInEditMode()) {
+		if (isInEditMode())
+		{
 			createEditModeLayout();
 		}
 	}
@@ -96,13 +97,13 @@ public class ViewPagerIndicator extends LinearLayoutCompat
 
 		if(selectedIndex>mSelectedIndex)
 		{
-			if(selectedIndex>2 && selectedIndex<mPageCount-2)
+			if(selectedIndex>MAX_SHOW/2 && selectedIndex<mPageCount-2)
 			{
-				viewsArrayList.add(getChildAt(2+selectedIndex));
-				viewsArrayList.remove(getChildAt(selectedIndex-3));
+				viewsArrayList.add(getChildAt((MAX_SHOW/2)+selectedIndex));
+				viewsArrayList.remove(getChildAt(selectedIndex-((MAX_SHOW/2)+1)));
 
 
-				getChildAt(2+selectedIndex).animate().alphaBy(1.0f).setDuration(0).setListener(new Animator.AnimatorListener()
+				getChildAt((MAX_SHOW/2)+selectedIndex).animate().alphaBy(1.0f).setDuration(0).setListener(new Animator.AnimatorListener()
 				{
 
 					@Override
@@ -114,9 +115,9 @@ public class ViewPagerIndicator extends LinearLayoutCompat
 					@Override
 					public void onAnimationEnd(Animator animation)
 					{
-						getChildAt(2+selectedIndex).setVisibility(View.VISIBLE);
-						getChildAt(2+selectedIndex).setAlpha(0.4f);
-						getChildAt(1+selectedIndex).setAlpha(1.0f);
+						getChildAt((MAX_SHOW/2)+selectedIndex).setVisibility(View.VISIBLE);
+						getChildAt((MAX_SHOW/2)+selectedIndex).setAlpha(0.4f);
+						getChildAt(((MAX_SHOW/2)-1)+selectedIndex).setAlpha(1.0f);
 					}
 
 					@Override
@@ -131,7 +132,7 @@ public class ViewPagerIndicator extends LinearLayoutCompat
 				}).start();
 
 
-				getChildAt(selectedIndex-3).animate().alpha(0.0f).setDuration(200).setListener(new Animator.AnimatorListener() {
+				getChildAt(selectedIndex-((MAX_SHOW/2)+1)).animate().alpha(0.0f).setDuration(200).setListener(new Animator.AnimatorListener() {
 					@Override
 					public void onAnimationStart(Animator animation) {
 
@@ -139,8 +140,8 @@ public class ViewPagerIndicator extends LinearLayoutCompat
 
 					@Override
 					public void onAnimationEnd(Animator animation) {
-						getChildAt(selectedIndex-3).setVisibility(View.GONE);
-						getChildAt(selectedIndex-2).setAlpha(0.4f);
+						getChildAt(selectedIndex-((MAX_SHOW/2)+1)).setVisibility(View.GONE);
+						getChildAt(selectedIndex-(MAX_SHOW/2)).setAlpha(0.4f);
 					}
 
 					@Override
@@ -159,29 +160,12 @@ public class ViewPagerIndicator extends LinearLayoutCompat
 				getChildAt(mPageCount-1).setAlpha(1.0f);
 			}
 
-			/*else if(selectedIndex>2)
-			{
-				viewsArrayList.get(viewsArrayList.size()-1).setAlpha(0.4f);
-				getChildAt(0).setAlpha(1.0f);
-			}
-			else if(selectedIndex>mPageCount-3)
-			{
-				viewsArrayList.get(0).setAlpha(0.4f);
-				getChildAt(mPageCount-1).setAlpha(1.0f);
-			}
-			else
-			{
-				viewsArrayList.get(0).setAlpha(0.4f);
-				getChildAt(mPageCount-1).setAlpha(1.0f);
-				getChildAt(0).setAlpha(1.0f);
-
-			}*/
 		}
 		else
 		{
-			if(selectedIndex<mPageCount-3 && selectedIndex>1)
+			if(selectedIndex<mPageCount-((MAX_SHOW/2)+1) && selectedIndex>1)
 			{
-				getChildAt(3+selectedIndex).animate().alphaBy(0.0f).setDuration(200).setListener(new Animator.AnimatorListener() {
+				getChildAt(((MAX_SHOW/2)+1)+selectedIndex).animate().alphaBy(0.0f).setDuration(200).setListener(new Animator.AnimatorListener() {
 					@Override
 					public void onAnimationStart(Animator animation) {
 
@@ -189,8 +173,8 @@ public class ViewPagerIndicator extends LinearLayoutCompat
 
 					@Override
 					public void onAnimationEnd(Animator animation) {
-						getChildAt(3+selectedIndex).setVisibility(View.GONE);
-						getChildAt(2+selectedIndex).setAlpha(0.4f);
+						getChildAt(((MAX_SHOW/2)+1)+selectedIndex).setVisibility(View.GONE);
+						getChildAt((MAX_SHOW/2)+selectedIndex).setAlpha(0.4f);
 					}
 
 					@Override
@@ -204,7 +188,7 @@ public class ViewPagerIndicator extends LinearLayoutCompat
 					}
 				}).start();
 
-				getChildAt(selectedIndex-2).animate().alphaBy(1.0f).setDuration(0).setListener(new Animator.AnimatorListener() {
+				getChildAt(selectedIndex-(MAX_SHOW/2)).animate().alphaBy(1.0f).setDuration(0).setListener(new Animator.AnimatorListener() {
 					@Override
 					public void onAnimationStart(Animator animation) {
 
@@ -212,9 +196,9 @@ public class ViewPagerIndicator extends LinearLayoutCompat
 
 					@Override
 					public void onAnimationEnd(Animator animation) {
-						getChildAt(selectedIndex-2).setVisibility(View.VISIBLE);
-						getChildAt(selectedIndex-2).setAlpha(0.4f);
-						getChildAt(selectedIndex-1).setAlpha(1.0f);
+						getChildAt(selectedIndex-(MAX_SHOW/2)).setVisibility(View.VISIBLE);
+						getChildAt(selectedIndex-(MAX_SHOW/2)).setAlpha(0.4f);
+						getChildAt(selectedIndex-((MAX_SHOW/2)-1)).setAlpha(1.0f);
 					}
 
 					@Override
@@ -228,31 +212,14 @@ public class ViewPagerIndicator extends LinearLayoutCompat
 					}
 				}).start();
 
-				viewsArrayList.remove(getChildAt(3+selectedIndex));
-				viewsArrayList.add(getChildAt(selectedIndex-2));
+				viewsArrayList.remove(getChildAt(((MAX_SHOW/2)+1)+selectedIndex));
+				viewsArrayList.add(getChildAt(selectedIndex-(MAX_SHOW/2)));
 
 			}
 			else if(selectedIndex==1)
 			{
 				getChildAt(0).setAlpha(1.0f);
 			}
-			/*else if(selectedIndex>mPageCount-3)
-			{
-				viewsArrayList.get(0).setAlpha(0.4f);
-				getChildAt(mPageCount-1).setAlpha(1.0f);
-			}
-			else if(selectedIndex<=2)
-			{
-				viewsArrayList.get(viewsArrayList.size()-1).setAlpha(0.4f);
-				getChildAt(0).setAlpha(1.0f);
-			}
-			else
-			{
-				viewsArrayList.get(viewsArrayList.size()-1).setAlpha(0.4f);
-				getChildAt(0).setAlpha(1.0f);
-				getChildAt(mPageCount-1).setAlpha(1.0f);
-			}*/
-
 		}
 
 		final ImageView unselectedView = mIndexImages.get(mSelectedIndex);
